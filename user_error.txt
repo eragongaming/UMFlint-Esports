@@ -1,0 +1,30 @@
+Author: Kayo Hinazuki#2531
+Message: !testing log 2
+
+Author: Kayo Hinazuki#2531
+Message: !testing log 3
+
+Author: Swagbob1300#1649
+Message: !settings
+
+Author: Swagbob1300#1649
+Message: !settings prefix p
+
+Author: Swagbob1300#1649
+Message: !settings
+
+Author: Kayo Hinazuki#2531
+Message: !schedule
+
+Author: Kayo Hinazuki#2531
+Error: Command "x" is not found
+Message: !x
+
+Author: Kayo Hinazuki#2531
+Error: Command "ab" is not found
+Message: !ab
+
+Author: Kayo Hinazuki#2531
+Error: Command "a" is not found
+Message: !a
+
