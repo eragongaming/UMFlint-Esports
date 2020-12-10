@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 from discord.utils import get
 import shelve
-import asyncio.exceptions
+import asyncio
 intents = discord.Intents.default()
 intents.members = True
 intents.reactions = True
