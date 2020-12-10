@@ -6,11 +6,14 @@ from discord.ext.commands import CommandNotFound
 from discord.utils import get
 import shelve
 import asyncio.exceptions
+intents = discord.Intents.default()
+intents.members = True
+intents.reactions = True
 
 # Assigning id's and bot object
 TOKEN = os.environ['TOKEN']
 GUILD = os.environ['GUILD']
-bot = commands.Bot(command_prefix='!', case_insensitive=True)
+bot = commands.Bot(command_prefix='!', case_insensitive=True, intents=intents)
 
 
 @bot.event
