@@ -7,7 +7,6 @@ from discord.utils import get
 import shelve
 import asyncio.exceptions
 
-
 # Assigning id's and bot object
 TOKEN = os.environ['TOKEN']
 GUILD = os.environ['GUILD']
@@ -655,6 +654,20 @@ async def identity(ctx):
         else:
             await member.add_roles(desired_role)  # adds the role
             await ctx.send(f'You have been given {name}.')
+
+
+# Allows the user to pin a message in the game chats if they have the role
+@bot.command(name='pin', help='Pin the message that contains the command')
+async def pin(ctx):
+    msg = ctx.message
+    guild = ctx.message.author.guild
+    channel_name = ctx.message.channel.name
+    member = ctx.message.author
+    role = get(guild.roles, name=channel_name)
+    if role is None:
+        await ctx.send('You can not pin outside of the game channels')
+        return
+    await msg.pin()
 
 
 @bot.command(name='shutdown')

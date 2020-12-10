@@ -28,3 +28,11 @@ Author: Kayo Hinazuki#2531
 Error: Command "a" is not found
 Message: !a
 
+Author: Kayo Hinazuki#2531
+Error: Command raised an exception: AttributeError: 'Message' object has no attribute 'message'
+Message: !pin Wowee
+
+Author: Kayo Hinazuki#2531
+Error: Command raised an exception: RecursionError: maximum recursion depth exceeded
+Message: !pin Wowee
+
