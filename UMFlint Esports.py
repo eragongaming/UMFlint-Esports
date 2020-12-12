@@ -26,44 +26,7 @@ async def on_ready():
         if msg.content == 'I am offline!' or msg.content == 'I am online!':
             specific = msg
     await specific.edit(content='I am online!')
-    # guild = bot.get_guild(692095297844805732)
-    # print(guild)
-    # channel = get(guild.text_channels, name='welcome')
-    # mgs = [] # Empty list to put all the messages in the log
-    # async for x in channel.history():
-    #     mgs.append(x)
-    # await channel.delete_messages(mgs)
-    # channel = bot.get_channel(752241151641255986)
-    # await channel.send('''Welcome to UMFlint Esports, the official University of Michigan-Flint
-    # competitive gaming organization.To access specific game channels, and receive a role,
-    # please click the reaction emoji for the corresponding category from the following list.
-    # If you no longer wish to be included in a category,
-    # re-click on the same reaction emoji to remove the role.
-    # Thank you for joining our community!''')
-    # rocket = await channel.send('**Rocket League**')
-    # overwatch = await channel.send('**Overwatch**')
-    # siege = await channel.send('**Rainbow 6 Siege**')
-    # csgo = await channel.send('**CS-GO**')
-    # cod = await channel.send('**COD-MW**')
-    # smash = await channel.send('**Super Smash Bros.**')
-    # league = await channel.send('**League of Legends**')
-    # valorant = await channel.send('**Valorant**')
-    # erocket = bot.get_emoji(752263285759279165)
-    # eoverwatch = bot.get_emoji(752263285512077514)
-    # esiege = bot.get_emoji(752263285545369711)
-    # ecsgo = bot.get_emoji(752263285205893224)
-    # ecod = bot.get_emoji(752263285478522890)
-    # esmash = bot.get_emoji(752263268596187317)
-    # eleague = bot.get_emoji(752263260367093820)
-    # evalorant = bot.get_emoji(752263246979006515)
-    # await overwatch.add_reaction(eoverwatch)
-    # await rocket.add_reaction(erocket)
-    # await siege.add_reaction(esiege)
-    # await csgo.add_reaction(ecsgo)
-    # await cod.add_reaction(ecod)
-    # await smash.add_reaction(esmash)
-    # await league.add_reaction(eleague)
-    # await valorant.add_reaction(evalorant)
+
 
 
 # # Allows a user to join an existing game role
@@ -685,6 +648,20 @@ async def shutdown(ctx):
     await specific.edit(content='I am offline!')
     await ctx.bot.logout()
 
+
+# Sends a DM to those who join the server asking for their UMID
+@bot.event
+async def on_member_join(member):
+    msg = "Hello, welcome to the UMFlint Esports Server! Please type both your name and UMID in " \
+          "the same message to be verified."
+
+    def check(response):
+        return 'yes' in response.content.lower() and response.author.id == ctx.message.author.id
+
+    await member.send(msg)
+    await ctx.send('Message sent')
+    await bot.wait_for("message", check=said_yes, timeout=20)
+
 # # Allows the user to check who plays a specific game
 # @bot.group(name='pet', help='Manage your pet!')
 # async def pet_menu(ctx, opt=None, member: discord.Member = None):
@@ -760,6 +737,11 @@ async def on_message(message):
     auth = str(message.author.id)
     con = message.content
     con = con.lower()
+    channel = bot.get_channel(787162590043439115)
+
+    if message.guild is None and message.author != bot.user:
+        output = str(message.author)+": "+message.content
+        await channel.send(output)
 
     # Allows messages to eventually reach commands
     await bot.process_commands(message)
