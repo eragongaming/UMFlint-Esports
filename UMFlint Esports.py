@@ -1,4 +1,3 @@
-import os
 import random
 import discord
 from discord.ext import commands
@@ -655,12 +654,7 @@ async def on_member_join(member):
     msg = "Hello, welcome to the UMFlint Esports Server! Please type both your name and UMID in " \
           "the same message to be verified."
 
-    def check(response):
-        return 'yes' in response.content.lower() and response.author.id == ctx.message.author.id
-
     await member.send(msg)
-    await ctx.send('Message sent')
-    await bot.wait_for("message", check=said_yes, timeout=20)
 
 # # Allows the user to check who plays a specific game
 # @bot.group(name='pet', help='Manage your pet!')
