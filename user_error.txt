@@ -36,3 +36,15 @@ Author: Kayo Hinazuki#2531
 Error: Command raised an exception: RecursionError: maximum recursion depth exceeded
 Message: !pin Wowee
 
+Author: Star Butterfly#2531
+Error: Command raised an exception: error: db type could not be determined
+Message: !ign <@!186688726187900929>
+
+Author: Star Butterfly#2531
+Error: Command raised an exception: error: db file doesn't exist; use 'c' or 'n' flag to create a new db
+Message: !ign <@!186688726187900929>
+
+Author: Star Butterfly#2531
+Error: Command raised an exception: NameError: name 'img_log' is not defined
+Message: !igns League EragonGaming
+

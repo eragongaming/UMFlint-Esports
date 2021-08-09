@@ -636,6 +636,67 @@ async def pin(ctx):
     await msg.pin()
 
 
+# Allows user to save their ign's for various games to be seen as a list later
+@bot.command(name='igns', help='Save your ign for various games. !igns game [ign]')
+async def igns_command(ctx, game=None, ign=None):
+    guild = ctx.guild
+    auth = str(ctx.message.author.id)
+
+    if game is None or ign is None:
+        await ctx.send('Please include both a game and ign. !igns game [ign]')
+        return
+
+    ign_log = shelve.open('ign_log.txt', flag='c', writeback=True)
+
+    if auth not in ign_log.keys():
+        ign_log[auth] = []
+
+    temp = ign_log[auth]
+
+    for x in temp:
+        if x[0] == game:
+            await ctx.send(f'Would you like to change your ign from {x[0]} for {game}?')
+            temp_m = await bot.wait_for("message", check=(lambda s: s.author == ctx.message.author))
+            if temp_m.lower() == 'yes':
+                temp.append((game, ign))
+                ign_log[auth] = temp
+                ign_log.close()
+                await ctx.send(f'You have saved your ign for {game} as {ign}!')
+                return
+            else:
+                return
+
+    temp.append((game, ign))
+    ign_log[auth] = temp
+    ign_log.close()
+    await ctx.send(f'You have saved your ign for {game} as {ign}!')
+    return
+
+
+# Allows users to view other users' igns
+@bot.command(name='ign', help='Show a list of igns for a user. !ign @user')
+async def ign_command(ctx, user):
+    guild = ctx.guild
+    user = user.strip("<@!>")
+
+    user_output = bot.get_user(int(user))
+
+    ign_log = shelve.open('ign_log.txt', flag='r')
+
+    if user not in ign_log.keys():
+        await ctx.send('They do not have any saved IGNs!')
+        return
+
+    temp = ign_log[user]
+
+    output = 'These are the IGNs they have saved:\n\n'
+    for temp_name in temp:
+        output += f'For {temp_name[0]}: Their IGN is {temp_name[1]}\n'
+    await ctx.send(output)
+    ign_log.close()
+    return
+
+
 @bot.command(name='shutdown')
 @commands.has_role('MAIZE')
 async def shutdown(ctx):
