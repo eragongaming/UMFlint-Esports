@@ -675,11 +675,15 @@ async def igns_command(ctx, game=None, ign=None):
 
 # Allows users to view other users' igns
 @bot.command(name='ign', help='Show a list of igns for a user. !ign @user')
-async def ign_command(ctx, user):
+async def ign_command(ctx, user=None):
     guild = ctx.guild
     user = user.strip("<@!>")
 
     user_output = bot.get_user(int(user))
+
+    if user is None:
+        await ctx.send('Please mention a user to get their IGNs using !ign @[user]')
+        return
 
     ign_log = shelve.open('ign_log.txt', flag='r')
 
