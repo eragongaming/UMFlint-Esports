@@ -27,7 +27,6 @@ async def on_ready():
     await specific.edit(content='I am online!')
 
 
-
 # # Allows a user to join an existing game role
 # @bot.command(name='game', help='Gain access to a game')
 # async def add_role(ctx, game):  # pass user and role
@@ -125,6 +124,14 @@ async def on_raw_reaction_add(payload):
         else:
             await user.add_roles(role)
             return
+    if emoji == 890997219250024458:
+        role = discord.utils.get(guild.roles, name='fortnight')
+        if role in user.roles:
+            await user.remove_roles(role)
+            return
+        else:
+            await user.add_roles(role)
+            return
 
 
 # Reaction code to remove roles
@@ -176,6 +183,11 @@ async def on_raw_reaction_remove(payload):
             return
     if emoji == 752263246979006515:
         role = discord.utils.get(guild.roles, name='valorant')
+        if role in user.roles:
+            await user.remove_roles(role)
+            return
+    if emoji == 890997219250024458:
+        role = discord.utils.get(guild.roles, name='fortnight')
         if role in user.roles:
             await user.remove_roles(role)
             return
