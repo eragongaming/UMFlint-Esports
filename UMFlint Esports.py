@@ -728,8 +728,10 @@ async def shutdown(ctx):
 # Sends a DM to those who join the server asking for their UMID
 @bot.event
 async def on_member_join(member):
-    msg = "Hello, welcome to the UMFlint Esports Server! Please type both your name and UMID in " \
-          "the same message to be verified."
+    msg = """Hello, welcome to the UMFlint Esports Server!
+     If you are a current/prospective student please respond with your name and UMID
+      (If you do not have your UMID yet please state that you have not received one yet). 
+      If you are not a current/prospective student please respond with 'not a student'"""
 
     await member.send(msg)
 
